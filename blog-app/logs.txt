@@ -1,0 +1,54 @@
+poap@POAP-BattleShip:~/projects$ docker ps
+CONTAINER ID   IMAGE      COMMAND                  CREATED          STATUS          PORTS                                         NAMES
+734051f85ef5   postgres   "docker-entrypoint.s…"   11 seconds ago   Up 10 seconds   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp   distracted_chatelet
+poap@POAP-BattleShip:~/projects$ docker exec -it 734051f85ef5 psql -U postgres postgres
+psql (17.5 (Debian 17.5-1.pgdg120+1))
+Type "help" for help.
+
+postgres=# CREATE TABLE IF NOT EXISTS blogs (id SERIAL PRIMARY KEY, author text, url text NOT NULL, title text NOT NULL, likes INTEGER DEFAULT 0);
+CREATE TABLE
+postgres=# \d
+              List of relations
+ Schema |     Name     |   Type   |  Owner   
+--------+--------------+----------+----------
+ public | blogs        | table    | postgres
+ public | blogs_id_seq | sequence | postgres
+(2 rows)
+
+postgres=# INSERT INTO blogs (url, title) values ('www.exampleblog.com', 'Example blog');
+INSERT 0 1
+postgres=# INSERT INTO blogs (author, url, title, likes) values ('poap', 'www.anotherblog/12.com', 'Another blog', 5);
+INSERT 0 1
+postgres=# select * from blogs;
+ id | author |          url           |    title     | likes 
+----+--------+------------------------+--------------+-------
+  1 |        | www.exampleblog.com    | Example blog |     0
+  2 | poap   | www.anotherblog/12.com | Another blog |     5
+(2 rows)
+
+/////////////////////////////////
+[nodemon] starting `node cli.js`
+[dotenv@17.2.0] injecting env (1) from .env.local (tip: ⚙️  specify custom .env file path with { path: '/custom/path/.env' })
+Executing (default): SELECT 1+1 AS result
+Executing (default): SELECT * FROM blogs
+[
+  {
+    id: 1,
+    author: null,
+    url: 'www.exampleblog.com',
+    title: 'Example blog',
+    likes: 0
+  },
+  {
+    id: 2,
+    author: 'poap',
+    url: 'www.anotherblog/12.com',
+    title: 'Another blog',
+    likes: 5
+  }
+]
+
+
+Executing (default): SELECT * FROM blogs
+null: Example blog, 0 likes
+poap: Another blog, 5 likes

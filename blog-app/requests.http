@@ -1,0 +1,23 @@
+POST http://localhost:3030/api/blogs HTTP/1.1
+content-type: application/json
+
+{
+    "author": "Poap",
+    "url": "www.blogexample.com/31",
+		"title": "A new blog example",
+		"likes": 0
+}
+
+###
+
+PUT http://localhost:3030/api/blogs/2 HTTP/1.1
+content-type: application/json
+
+{
+		"likes": 3
+}
+
+###
+
+DELETE http://localhost:3030/api/blogs/2 HTTP/1.1
+content-type: application/json

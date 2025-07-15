@@ -7,7 +7,7 @@ const blogFinder = async (req, res, next) => {
 
 }
 
-router.get('/api/blogs', async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const blogs = await Blog.findAll()
 		if (blogs) {
@@ -21,7 +21,7 @@ router.get('/api/blogs', async (req, res) => {
 	}
 })
 
-router.post('/api/blogs', async (req, res) => {
+router.post('/', async (req, res) => {
 	try {
 		console.log(req.body)
 		const blog = await Blog.create(req.body)
@@ -33,12 +33,23 @@ router.post('/api/blogs', async (req, res) => {
 
 })
 
-router.delete('/api/blogs/:id', async (req, res) => {
+router.put('/:id', blogFinder, async (req, res) => {
 	try {
-		const id = req.params.id
-		const blogToDelete = await Blog.findByPk(id)
-		if (blogToDelete) blogToDelete.destroy()
-		res.json(blogToDelete)
+		if (req.blog) {
+			req.blog.likes = req.body.likes
+			await req.blog.save()
+			res.json(req.blog.likes)
+		}
+	} catch (error) {
+		console.error('Could not update blog', error)
+		res.status(404).json({ error })
+	}
+})
+
+router.delete('/:id', blogFinder, async (req, res) => {
+	try {
+		if (req.blog) req.blog.destroy()
+		res.json(req.blog)
 	} catch (error) {
 		console.error('Could not delete blog', error)
 		res.status(404).end()

@@ -1,26 +1,10 @@
 const router = require('express').Router()
-const { application } = require('express')
 const { Blog } = require('../models')
+const errorHandler = require('../util/errorHandler')
 
 const blogFinder = async (req, res, next) => {
 	req.blog = await Blog.findByPk(req.params.id)
 	next()
-}
-
-const errorHandler = (error, req, res, next) => {
-	//console.error('Error', error)
-	if (error.name === 'CastError') {
-		return res.status(400).send({ error: 'malformatted id' })
-	}
-	if (error.name === 'SequelizeDatabaseError') {
-		console.error('Error', error.parent)
-		return res.status(400).send({ error: error.parent })
-	}
-	if (error.ValidationErrorItem) {
-		console.error('Error', error.ValidationErrorItem.type)
-		return res.status(400).send({ error: error.ValidationErrorItem.message })
-	}
-	next(error)
 }
 
 router.get('/', async (req, res) => {

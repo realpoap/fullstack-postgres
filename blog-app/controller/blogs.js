@@ -1,10 +1,26 @@
 const router = require('express').Router()
+const { application } = require('express')
 const { Blog } = require('../models')
 
 const blogFinder = async (req, res, next) => {
 	req.blog = await Blog.findByPk(req.params.id)
 	next()
+}
 
+const errorHandler = (error, req, res, next) => {
+	//console.error('Error', error)
+	if (error.name === 'CastError') {
+		return res.status(400).send({ error: 'malformatted id' })
+	}
+	if (error.name === 'SequelizeDatabaseError') {
+		console.error('Error', error.parent)
+		return res.status(400).send({ error: error.parent })
+	}
+	if (error.ValidationErrorItem) {
+		console.error('Error', error.ValidationErrorItem.type)
+		return res.status(400).send({ error: error.ValidationErrorItem.message })
+	}
+	next(error)
 }
 
 router.get('/', async (req, res) => {
@@ -21,19 +37,18 @@ router.get('/', async (req, res) => {
 	}
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 	try {
 		console.log(req.body)
 		const blog = await Blog.create(req.body)
 		res.json(blog)
 	} catch (error) {
-		console.error('Could not create blog', error)
-		return res.status(400).json({ error })
+		next(error)
 	}
 
 })
 
-router.put('/:id', blogFinder, async (req, res) => {
+router.put('/:id', blogFinder, async (req, res, next) => {
 	try {
 		if (req.blog) {
 			req.blog.likes = req.body.likes
@@ -41,20 +56,20 @@ router.put('/:id', blogFinder, async (req, res) => {
 			res.json(req.blog.likes)
 		}
 	} catch (error) {
-		console.error('Could not update blog', error)
-		res.status(404).json({ error })
+		next(error)
 	}
 })
 
-router.delete('/:id', blogFinder, async (req, res) => {
+router.delete('/:id', blogFinder, async (req, res, next) => {
 	try {
 		if (req.blog) req.blog.destroy()
 		res.json(req.blog)
 	} catch (error) {
-		console.error('Could not delete blog', error)
-		res.status(404).end()
+		next(error)
 	}
 
 })
+
+router.use(errorHandler)
 
 module.exports = router

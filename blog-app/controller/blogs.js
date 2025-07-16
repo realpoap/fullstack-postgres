@@ -27,7 +27,12 @@ const tokenExtractor = (req, res, next) => {
 
 router.get('/', async (req, res) => {
 	try {
-		const blogs = await Blog.findAll()
+		const blogs = await Blog.findAll({
+			include: {
+				model: User,
+				attributes: { exclude: ['userId'] }
+			}
+		})
 		if (blogs) {
 			blogs.map(blog => console.log(`${blog.author}: ${blog.title}, ${blog.likes} likes`))
 		}

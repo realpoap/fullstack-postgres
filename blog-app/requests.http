@@ -1,12 +1,12 @@
 POST http://localhost:3030/api/blogs HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndpdGhtYWlscG9hcEBnbWFpbC5jb20iLCJpZCI6NCwiaWF0IjoxNzUyNjI0NjE5fQ.I9ctZqr9vO4oh9ZuNvEDPC1W4MnZvD4x467DEMRJ-CU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo1LCJpYXQiOjE3NTI2NzIzNTZ9.BRzsswTpjkKuYqUwU9v4SRELPGl_3GCBoHWeRlXrRWE
 
 {
-    "author": "Poap",
-    "url": "www.blogexample.com/31",
-		"title": "A new poap example",
-		"likes": 0
+    "author": "Admin",
+    "url": "www.blogadmin.com/31",
+		"title": "How to login",
+		"likes": 1
 }
 
 ###
@@ -34,12 +34,12 @@ content-type: application/json
 		"likes": 0
 }
 
-### bad PUT request
-PUT http://localhost:3030/api/blogs/1 HTTP/1.1
+### PUT request
+PUT http://localhost:3030/api/blogs/4 HTTP/1.1
 content-type: application/json
 
 {
-		"likes": "super"
+		"likes": 2
 }
 
 ###
@@ -55,8 +55,8 @@ POST http://localhost:3030/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Poap",
-		"username": "withmailpoap@gmail.com"
+    "name": "Admin",
+		"username": "admin@gmail.com"
 }
 
 ### Login
@@ -65,7 +65,7 @@ content-type: application/json
 
 {
     "password": "password",
-		"username": "withmailpoap@gmail.com"
+		"username": "admin@gmail.com"
 }
 
 ### update error
@@ -76,3 +76,7 @@ content-type: application/json
     "name": "Poap",
 		"username": "realpoap"
 }
+
+###
+GET http://localhost:3030/api/authors HTTP/1.1
+content-type: application/json

@@ -1,5 +1,6 @@
 POST http://localhost:3030/api/blogs HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndpdGhtYWlscG9hcEBnbWFpbC5jb20iLCJpZCI6NCwiaWF0IjoxNzUyNjI0NjE5fQ.I9ctZqr9vO4oh9ZuNvEDPC1W4MnZvD4x467DEMRJ-CU
 
 {
     "author": "Poap",
@@ -50,6 +51,15 @@ content-type: application/json
 
 {
     "name": "Poap",
+		"username": "withmailpoap@gmail.com"
+}
+
+### Login
+POST http://localhost:3030/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "password": "password",
 		"username": "withmailpoap@gmail.com"
 }
 

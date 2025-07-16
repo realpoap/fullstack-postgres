@@ -5,7 +5,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Indpd
 {
     "author": "Poap",
     "url": "www.blogexample.com/31",
-		"title": "A new blog example",
+		"title": "A new poap example",
 		"likes": 0
 }
 
@@ -44,6 +44,10 @@ content-type: application/json
 
 ###
 GET http://localhost:3030/api/users HTTP/1.1
+content-type: application/json
+
+###
+GET http://localhost:3030/api/blogs?search=blog HTTP/1.1
 content-type: application/json
 
 ###

@@ -62,8 +62,11 @@ router.put('/:id', blogFinder, async (req, res, next) => {
 	}
 })
 
-router.delete('/:id', blogFinder, async (req, res, next) => {
+router.delete('/:id', tokenExtractor, blogFinder, async (req, res, next) => {
 	try {
+		const user = await User.findByPk(req.decodedToken.id)
+		console.log(user.id, req.blog.userId)
+		if (user.id !== req.blog.userId) return res.status(403).json({ error: "User not authorized" })
 		if (req.blog) req.blog.destroy()
 		res.json(req.blog)
 	} catch (error) {

@@ -20,8 +20,9 @@ content-type: application/json
 
 ###
 
-DELETE http://localhost:3030/api/blogs/2 HTTP/1.1
+DELETE http://localhost:3030/api/blogs/3 HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IndpdGhtYWlscG9hcEBnbWFpbC5jb20iLCJpZCI6NCwiaWF0IjoxNzUyNjI0NjE5fQ.I9ctZqr9vO4oh9ZuNvEDPC1W4MnZvD4x467DEMRJ-CU
 
 ### bad POST request
 POST http://localhost:3030/api/blogs HTTP/1.1

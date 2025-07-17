@@ -96,6 +96,14 @@ content-type: application/json
 }
 
 ###
-
 GET http://localhost:3030/api/users/1 HTTP/1.1
 content-type: application/json
+
+###
+PUT http://localhost:3030/api/readinglists/3 HTTP/1.1
+content-type: application/json
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NTI3ODA5MDd9.Xl8fPE2vMcwkjjBvbrAbL8utH2jk8LVXss6ZPa-MYcw
+
+{
+    "read": true
+}

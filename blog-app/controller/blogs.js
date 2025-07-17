@@ -1,13 +1,14 @@
 const router = require('express').Router()
 const { Blog, User } = require('../models')
 const errorHandler = require('../util/errorHandler')
-const { tokenExtractor } = require('../util/middleware')
+const { tokenExtractor, checkTokenValid } = require('../util/middleware')
 const { Op } = require('sequelize')
 
 const blogFinder = async (req, res, next) => {
 	req.blog = await Blog.findByPk(req.params.id)
 	next()
 }
+
 
 router.get('/', async (req, res) => {
 	try {
@@ -59,7 +60,7 @@ router.get('/', async (req, res) => {
 	}
 })
 
-router.post('/', tokenExtractor, async (req, res, next) => {
+router.post('/', tokenExtractor, checkTokenValid, async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.decodedToken.id)
 		const blog = await Blog.create({ ...req.body, userId: user.id })
@@ -82,7 +83,7 @@ router.put('/:id', blogFinder, async (req, res, next) => {
 	}
 })
 
-router.delete('/:id', tokenExtractor, blogFinder, async (req, res, next) => {
+router.delete('/:id', tokenExtractor, checkTokenValid, blogFinder, async (req, res, next) => {
 	try {
 		const user = await User.findByPk(req.decodedToken.id)
 		console.log(user.id, req.blog.userId)

@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Blog } = require('../models')
 const { sequelize } = require('../util/db')
 
+
 router.get('/', async (req, res) => {
 	try {
 		const authors = await Blog.findAll({

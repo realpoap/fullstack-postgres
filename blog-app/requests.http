@@ -1,13 +1,13 @@
 POST http://localhost:3030/api/blogs HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NTI3NjQyNzB9.YpjaV5dOuwFzWM9g2i-ZtTacRZxKv2QN4AV6wAEEu-c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJAZ21haWwuY29tIiwiaWQiOjIsImlhdCI6MTc1Mjc4NzEwNn0.XPvtxcC3EJCxFNwBJjLbdTYbIE3J7EUusvQm61x4dTY
 
 {
     "author": "Admin",
     "url": "www.blogadmin.com/31",
 		"title": "How to login",
 		"likes": 1,
-		"year": 1990 //"error": "Validation min on year failed"
+		"year": 1992
 }
 
 ###
@@ -55,13 +55,13 @@ content-type: application/json
 GET http://localhost:3030/api/blogs?search=blog HTTP/1.1
 content-type: application/json
 
-###
+### create user
 POST http://localhost:3030/api/users HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Admin",
-		"username": "admin@gmail.com"
+    "name": "user",
+		"username": "user@gmail.com"
 }
 
 ### Login
@@ -69,9 +69,14 @@ POST http://localhost:3030/api/login HTTP/1.1
 content-type: application/json
 
 {
-    "password": "password",
-		"username": "admin@gmail.com"
+    "username": "admin@gmail.com",
+    "password": "password"
 }
+
+### Logout
+DELETE http://localhost:3030/api/logout HTTP/1.1
+authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJAZ21haWwuY29tIiwiaWQiOjIsImlhdCI6MTc1Mjc4NzEwNn0.XPvtxcC3EJCxFNwBJjLbdTYbIE3J7EUusvQm61x4dTY
+content-length: 0
 
 ### update error
 PUT http://localhost:3030/api/users/battlepoap HTTP/1.1

@@ -29,9 +29,16 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
 	try {
+		let readFilter = {}
+		if (req.query.read) {
+			readFilter = {
+				read: req.query.read
+			}
+		}
+
 		const user = await User.findOne({
 			where: {
-				id: req.params.id
+				id: req.params.id,
 			},
 			include: [
 				{
@@ -39,7 +46,8 @@ router.get('/:id', async (req, res, next) => {
 					as: 'blogs_read',
 					attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
 					through: {
-						attributes: ['read', 'id']
+						attributes: ['read', 'id'],
+						where: readFilter
 					}
 				}
 			]

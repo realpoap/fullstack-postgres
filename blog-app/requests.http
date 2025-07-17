@@ -91,12 +91,12 @@ POST http://localhost:3030/api/readinglists HTTP/1.1
 content-type: application/json
 
 {
-    "userId": 3,
-		"blogId": 2
+    "userId":1,
+		"blogId": 4
 }
 
 ###
-GET http://localhost:3030/api/users/1 HTTP/1.1
+GET http://localhost:3030/api/users/1?read=true HTTP/1.1
 content-type: application/json
 
 ###

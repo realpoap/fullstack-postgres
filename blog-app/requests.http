@@ -1,12 +1,13 @@
 POST http://localhost:3030/api/blogs HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjo1LCJpYXQiOjE3NTI2NzIzNTZ9.BRzsswTpjkKuYqUwU9v4SRELPGl_3GCBoHWeRlXrRWE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NTI3NjQyNzB9.YpjaV5dOuwFzWM9g2i-ZtTacRZxKv2QN4AV6wAEEu-c
 
 {
     "author": "Admin",
     "url": "www.blogadmin.com/31",
 		"title": "How to login",
-		"likes": 1
+		"likes": 1,
+		"year": 1990 //"error": "Validation min on year failed"
 }
 
 ###
@@ -47,6 +48,10 @@ GET http://localhost:3030/api/users HTTP/1.1
 content-type: application/json
 
 ###
+GET http://localhost:3030/api/blogs HTTP/1.1
+content-type: application/json
+
+### Search for blogs
 GET http://localhost:3030/api/blogs?search=blog HTTP/1.1
 content-type: application/json
 

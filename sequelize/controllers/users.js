@@ -13,10 +13,27 @@ const isAdmin = async (res, req, next) => {
 
 router.get('/', async (req, res) => {
 	const users = await User.findAll({
-		include: {
-			model: Note,
-			attributes: { exclude: ['userId'] }
-		}
+		include: [
+			{
+				model: Note,
+				attributes: { exclude: ['userId'] }
+			},
+			{
+				model: Note,
+				as: 'marked_notes',
+				attributes: { exclude: ['userId'] },
+				through: {
+					attributes: []
+				},
+				include: { model: User, attributes: ['name'] }
+			},
+
+			{
+				model: Team,
+				atribute: ['name', 'id'],
+				through: { attributes: [] }
+			}
+		]
 	})
 	res.json(users)
 })

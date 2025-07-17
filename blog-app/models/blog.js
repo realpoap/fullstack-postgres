@@ -29,6 +29,7 @@ Blog.init({
 			min: 1991
 		}
 	}
+
 }, {
 	sequelize,
 	underscored: true,

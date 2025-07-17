@@ -27,6 +27,29 @@ router.post('/', async (req, res, next) => {
 
 })
 
+router.get('/:id', async (req, res, next) => {
+	try {
+		const user = await User.findOne({
+			where: {
+				id: req.params.id
+			},
+			include: [
+				{
+					model: Blog,
+					as: 'blogs_read',
+					attributes: { exclude: ['userId', 'createdAt', 'updatedAt'] },
+					through: {
+						attributes: []
+					}
+				}
+			]
+		})
+		res.status(200).json(user)
+	} catch (error) {
+		next(error)
+	}
+})
+
 router.put('/:username', userFinder, async (req, res, next) => {
 	try {
 		req.user.username = req.body.username

@@ -5,7 +5,6 @@ const { SECRET } = require('../util/config')
 const User = require('../models/user')
 const Session = require('../models/session')
 
-
 router.post('/', async (req, res) => {
 	const body = req.body
 
@@ -16,6 +15,12 @@ router.post('/', async (req, res) => {
 	})
 
 	console.log('user:', user)
+
+	if (user.disabled) {
+		return response.status(401).json({
+			error: 'account disabled, please contact admin'
+		})
+	}
 
 	const passwordOk = body.password === 'password'
 
